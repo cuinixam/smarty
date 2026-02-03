@@ -1,0 +1,40 @@
+platforms:
+  - name: host_exe
+    description: Build Windows executable with clang
+    build_types:
+      - Debug
+      - Release
+    build_targets:
+      - all
+      - build
+      - compile
+      - report
+    cmake_generators:
+      - step: CreateExecutableCMakeGenerator
+        module: yanga.cmake.create_executable
+      - step: ReportCMakeGenerator
+        module: yanga.cmake.reports
+    toolchain_file: clang.cmake
+    is_default: true
+  - name: gtest
+    description: Build and run components GTest tests
+    build_targets:
+      - all
+      - report
+      - coverage
+      - lint
+    cmake_generators:
+      - step: GTestCMakeGenerator
+        module: yanga.cmake.gtest
+        config:
+            mocking:
+              enabled: true
+              strict: true
+              exclude_symbol_patterns:
+                - "_*"
+      - step: ReportCMakeGenerator
+        module: yanga.cmake.reports
+    toolchain_file: gcc.cmake
+    configs:
+      - id: west
+        file: platforms/host_exe/gtest.west.yaml
