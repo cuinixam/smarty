@@ -1,0 +1,14 @@
+manifest:
+  remotes:
+    - name: zephyr
+      url-base: https://github.com/zephyrproject-rtos
+  projects:
+    - name: zephyr
+      remote: zephyr
+      revision: v4.3.0 
+      path: zephyr
+      clone-depth: 1
+    - name: hal_espressif
+      remote: zephyr
+      revision: 2e6348fd9534226fc0829915e0c15d780855a012
+      path: hal_espressif
